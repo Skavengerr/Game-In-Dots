@@ -1,7 +1,7 @@
 import {connect} from 'react-redux'
 import {increment, decrement, reset} from '../store/actions'
 
-import Requests from '../components/Requests'
+import Game from "../components/Game";
 
 const mapStateToProps = (state, ownProps) => {
     return {
@@ -23,6 +23,6 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-const RequestsContainer = connect(mapStateToProps, mapDispatchToProps)(Requests)
+const RequestsContainer = connect(mapStateToProps, mapDispatchToProps)(Game);
 
 export default RequestsContainer

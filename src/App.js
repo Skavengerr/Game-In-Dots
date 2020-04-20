@@ -1,8 +1,8 @@
 import React from 'react'
-import RequestsContainer from './containers/RequestsContainer'
+import Container from './containers/Container'
 
 function App() {
-    return <RequestsContainer />
+    return <Container />
 }
 
 export default App
