@@ -2,10 +2,9 @@ import React, {useState, useEffect} from 'react'
 import {Button, Select, MenuItem, InputLabel, FormControl, TextField} from '@material-ui/core'
 import axios from 'axios'
 
-export default function HeaderMenu({mode, changeMode}) {
-    console.log("HeaderMenu -> mode", mode)
+export default function HeaderMenu({mode, name, changeMode, changeName}) {
+    const [value, setValue] = useState('')
     const [settings, setSettings] = useState()
-    console.log('HeaderMenu -> settings', settings)
 
     useEffect(() => {
         const fetchLeaders = async () => {
@@ -17,18 +16,29 @@ export default function HeaderMenu({mode, changeMode}) {
         fetchLeaders()
     }, [])
 
-    const handleChange = event => {
+    const handleChangeMode = event => {
         changeMode(event.target.value)
+    }
+    const handleChangeName = event => {
+        setValue(event.target.value)
     }
 
     const selectedItems = () => {
         let options = []
         if (settings !== undefined) {
             for (let key in settings) {
-                options.push(<MenuItem key={key} value={settings[key]}>{key}</MenuItem>)
+                options.push(
+                    <MenuItem key={key} value={settings[key]}>
+                        {key}
+                    </MenuItem>,
+                )
             }
         }
         return options
+    }
+
+    const onSubmit = () => {
+        changeName(value)
     }
 
     return (
@@ -38,19 +48,20 @@ export default function HeaderMenu({mode, changeMode}) {
                 <Select
                     className='bg-blue-gray-100'
                     value={mode}
-                    onChange={handleChange}
+                    onChange={handleChangeMode}
                     label='Pick Game Mode'
                 >
                     {selectedItems()}
                 </Select>
             </FormControl>
             <TextField
+                onChange={handleChangeName}
                 variant='outlined'
                 className='min-w-96 bg-gray-100'
                 label='Enter Your Name'
-                value=''
+                value={value}
             />
-            <Button variant='outlined' className='min-w-80 bg-blue-gray-200'>
+            <Button onClick={onSubmit} variant='outlined' className='min-w-80 bg-blue-gray-200'>
                 Play
             </Button>
         </div>

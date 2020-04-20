@@ -8,7 +8,12 @@ function Game(props) {
     return (
         <div className='flex justrify-between mt-48 p-24'>
             <div className='w-1/2 h-full border-2'>
-                <HeaderMenu mode={props.mode} changeMode={props.changeMode} />
+                <HeaderMenu
+                    mode={props.mode}
+                    name={props.name}
+                    changeMode={props.changeMode}
+                    changeName={props.changeName}
+                />
                 <Field mode={props.mode} />
             </div>
             <div className='w-1/2 h-full border-2'>
