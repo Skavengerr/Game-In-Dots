@@ -2,35 +2,46 @@ import React, {useState, useEffect} from 'react'
 import {Button, Select, MenuItem, InputLabel, FormControl, TextField} from '@material-ui/core'
 import axios from 'axios'
 
-export default function HeaderMenu() {
-    const [value, setValue] = useState('')
+export default function HeaderMenu({mode, changeMode}) {
+    console.log("HeaderMenu -> mode", mode)
     const [settings, setSettings] = useState()
-    console.log("HeaderMenu -> settings", settings)
+    console.log('HeaderMenu -> settings', settings)
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchLeaders = async () => {
             const result = await axios(
                 'https://starnavi-frontend-test-task.herokuapp.com/game-settings',
             )
             setSettings(result.data)
         }
-        fetchData()
+        fetchLeaders()
     }, [])
 
     const handleChange = event => {
-        setValue(event.target.value)
+        changeMode(event.target.value)
     }
+
+    const selectedItems = () => {
+        let options = []
+        if (settings !== undefined) {
+            for (let key in settings) {
+                options.push(<MenuItem key={key} value={settings[key]}>{key}</MenuItem>)
+            }
+        }
+        return options
+    }
+
     return (
         <div className='m-auto flex justify-around p-12'>
             <FormControl variant='outlined' className='min-w-128 bg-blue-gray-100 rounded-12'>
                 <InputLabel>Pick Game Mode</InputLabel>
                 <Select
                     className='bg-blue-gray-100'
-                    value={value}
+                    value={mode}
                     onChange={handleChange}
                     label='Pick Game Mode'
                 >
-                    <MenuItem value={0}>1</MenuItem>
+                    {selectedItems()}
                 </Select>
             </FormControl>
             <TextField

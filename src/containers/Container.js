@@ -1,28 +1,22 @@
 import {connect} from 'react-redux'
-import {increment, decrement, reset} from '../store/actions'
+import {changeMode} from '../store/actions'
 
-import Game from "../components/Game";
+import Game from '../components/Game'
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
     return {
-        counter: state.counter,
+        mode: state.game.mode,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        increment: options => {
-            dispatch(increment(options))
-        },
-        decrement: options => {
-            dispatch(decrement(options))
-        },
-        reset: options => {
-            dispatch(reset(options))
+        changeMode: options => {
+            dispatch(changeMode(options))
         },
     }
 }
 
-const RequestsContainer = connect(mapStateToProps, mapDispatchToProps)(Game);
+const RequestsContainer = connect(mapStateToProps, mapDispatchToProps)(Game)
 
 export default RequestsContainer
