@@ -1,20 +1,30 @@
 import React from 'react'
 import {render} from 'react-dom'
-import {compose, createStore} from 'redux'
+import {MuiThemeProvider} from '@material-ui/core/styles'
+import {createStore, applyMiddleware} from 'redux'
+import {composeWithDevTools} from 'redux-devtools-extension'
 import {Provider} from 'react-redux'
+import thunk from 'redux-thunk'
 import rootReducer from './store/reducers/index'
 
+
 import './assets/main.css'
+import MyTheme from './assets/MyTheme'
 import App from './App'
 
-const enhancer = compose(
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+const middleware = [thunk]
+
+const store = createStore(
+    rootReducer,
+    composeWithDevTools(
+        applyMiddleware(...middleware)),
 )
 
-const store = createStore(rootReducer, enhancer)
 render(
     <Provider store={store}>
-        <App />
+        <MuiThemeProvider theme={MyTheme}>
+            <App />
+        </MuiThemeProvider>
     </Provider>,
-    document.getElementById('root')
+    document.getElementById('root'),
 )

@@ -1,17 +1,10 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect} from 'react'
 import {Typography} from '@material-ui/core'
-import axios from 'axios'
 
-function LeaderBoard() {
-    const [leaders, setLeaders] = useState([])
-
+function LeaderBoard({start, leaders, fetchLeaders}) {
     useEffect(() => {
-        const fetchData = async () => {
-            const result = await axios('https://starnavi-frontend-test-task.herokuapp.com/winners')
-            setLeaders(result.data.filter(word => word.winner !== 'Хуй'))
-        }
-        fetchData()
-    }, [])
+        fetchLeaders()
+    }, [fetchLeaders, start])
 
     return (
         <div className='max-w-2xl p-24 m-auto text-center'>

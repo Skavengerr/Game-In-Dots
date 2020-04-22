@@ -9,15 +9,26 @@ function Game(props) {
         <div className='flex justrify-between mt-48 p-24'>
             <div className='w-1/2 h-full border-2'>
                 <HeaderMenu
-                    mode={props.mode}
                     name={props.name}
+                    start={props.start}
+                    mode={props.mode}
                     changeMode={props.changeMode}
                     changeName={props.changeName}
                 />
-                <Field mode={props.mode} />
+                <Field
+                    fetchLeaders={props.fetchLeaders}
+                    name={props.name}
+                    start={props.start}
+                    endGame={props.endGame}
+                    mode={props.mode}
+                />
             </div>
             <div className='w-1/2 h-full border-2'>
-                <LeaderBoard />
+                <LeaderBoard
+                    fetchLeaders={props.fetchLeaders}
+                    leaders={props.leaders}
+                    start={props.start}
+                />
             </div>
         </div>
     )

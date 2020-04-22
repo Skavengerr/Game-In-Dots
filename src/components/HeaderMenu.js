@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import {Button, Select, MenuItem, InputLabel, FormControl, TextField} from '@material-ui/core'
 import axios from 'axios'
 
-export default function HeaderMenu({mode, name, changeMode, changeName}) {
+export default function HeaderMenu({mode, name, changeMode, changeName, start}) {
     const [value, setValue] = useState('')
     const [settings, setSettings] = useState()
 
@@ -46,10 +46,12 @@ export default function HeaderMenu({mode, name, changeMode, changeName}) {
             <FormControl variant='outlined' className='min-w-128 bg-blue-gray-100 rounded-12'>
                 <InputLabel>Pick Game Mode</InputLabel>
                 <Select
+                    color='primary'
                     className='bg-blue-gray-100'
                     value={mode}
                     onChange={handleChangeMode}
                     label='Pick Game Mode'
+                    disabled={start}
                 >
                     {selectedItems()}
                 </Select>
@@ -60,9 +62,15 @@ export default function HeaderMenu({mode, name, changeMode, changeName}) {
                 className='min-w-96 bg-gray-100'
                 label='Enter Your Name'
                 value={value}
+                disabled={start}
             />
-            <Button onClick={onSubmit} variant='outlined' className='min-w-80 bg-blue-gray-200'>
-                Play
+            <Button
+                disabled={value === '' || mode === '' || start}
+                onClick={onSubmit}
+                variant='outlined'
+                className='min-w-80 bg-blue-gray-200'
+            >
+                {name ? 'Play Again' : 'Play'}
             </Button>
         </div>
     )
