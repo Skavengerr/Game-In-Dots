@@ -68,7 +68,7 @@ const Field = ({mode, name, start, endGame, fetchLeaders}) => {
             reset()
             fetchLeaders()
         } else if (redField.length >= (field * field) / 2) {
-            setSnackBar({open: true, winner: 'AI'})
+            setSnackBar({open: true, winner: 'Computer AI'})
             axios.post('https://starnavi-frontend-test-task.herokuapp.com/winners', {
                 winner: 'AI',
                 date: date,
